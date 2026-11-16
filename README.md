@@ -8,7 +8,23 @@ A Google Earth Engine script for detecting and analyzing burn areas using multi-
 
 This tool uses Sentinel-2 satellite imagery to detect and quantify areas affected by wildfire. By calculating the Normalized Burn Ratio (NBR) and comparing it across different years, the script identifies burn scars, classifies burn severity, and exports vector polygons of the affected areas.
 
-![Burn Area Analysis Example](https://via.placeholder.com/800x400?text=Burn+Area+Analysis+Example)
+## Web page
+
+**https://gddickinson.github.io/burn_index/**: the method explained from the code (every value parsed from the script,
+with line links), the code with an outline and search, and an interactive demo of the NBR / dNBR / threshold maths on a
+small **synthetic** grid (invented values, clearly labelled; not satellite imagery or results). The script itself runs
+only in the Earth Engine Code Editor.
+
+```bash
+pip install -r requirements-web.txt
+python run_web.py                    # http://127.0.0.1:8252
+python scripts/build_static.py       # the static site in site/
+python -m pytest -q tests            # web tests + node test of the ported maths
+```
+
+| How it works | Demo (synthetic grid) |
+|--------------|-----------------------|
+| ![How it works](docs/img/method.png) | ![Demo](docs/img/demo.png) |
 
 ## Features
 
@@ -27,7 +43,7 @@ The script implements the following workflow:
 2. **Band Selection**: Extracts relevant spectral bands for NBR calculation (NIR and SWIR2)
 3. **NBR Calculation**: Computes the normalized burn ratio using the formula: NBR = (NIR - SWIR2) / (NIR + SWIR2)
 4. **Change Detection**: Calculates the difference in NBR between pre-fire and post-fire images
-5. **Burn Severity Classification**: Applies thresholds to identify burn severity zones (low, moderate, high)
+5. **Burn Severity Classification**: Applies thresholds to dNBR: burned where dNBR > 0.1, three zones at > 0.1, > 0.65 and > 0.8, and hotspots at > 0.65
 6. **Vectorization**: Converts raster burn classes to vector polygons
 7. **Area Calculation**: Computes the area of burn scars in hectares
 
@@ -115,7 +131,7 @@ Healthy vegetation shows high reflectance in NIR and low reflectance in SWIR, re
 
 ### Burn Severity Classification
 
-The difference in NBR (dNBR) values can be interpreted as follows:
+The difference in NBR (dNBR) values are commonly interpreted as follows (general reference classes; the script's own zones use 0.1, 0.65 and 0.8, see "Adjusting Burn Severity Thresholds"):
 
 | dNBR Range | Burn Severity |
 |------------|---------------|
