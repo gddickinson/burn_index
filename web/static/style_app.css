@@ -1,0 +1,51 @@
+/* Burn index accents (ember orange / fire red / vegetation green) and page styles; the shared theme is style.css. */
+:root { --accent:#ff8a2a; --accent2:#ff4d5e; --accent3:#4fd88a; --glow:rgba(255,138,42,.13); }
+button, .btn { color:#1d0a00; } .seg button.on { color:#1d0a00; }
+
+.flow { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; counter-reset:f; }
+.flow div { border:1px solid var(--line); border-radius:6px; padding:12px 14px; background:rgba(12,16,32,.8); font-size:14px; }
+.flow div::before { counter-increment:f; content:counter(f); font:600 12px var(--mono); color:var(--bg); background:var(--accent);
+  border-radius:50%; width:20px; height:20px; display:inline-grid; place-items:center; margin-right:8px; }
+.cite { font:12px var(--mono); color:var(--mute); white-space:nowrap; }
+.synth { display:inline-block; font:600 11px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#1d0a00;
+  background:var(--warn); padding:2px 8px; border-radius:3px; }
+.diagram { width:100%; height:auto; display:block; margin:10px 0; }
+.diagram rect { fill:rgba(12,16,32,.95); stroke:var(--line); } .diagram .hl { stroke:var(--accent); }
+.diagram text { fill:var(--ink); font:13px var(--sans); } .diagram .sub { fill:var(--mute); font:11px var(--mono); }
+.diagram path { stroke:var(--accent); stroke-width:1.6; fill:none; marker-end:url(#arr); }
+.steps li { margin:10px 0; max-width:86ch; }
+dl.facts { display:grid; grid-template-columns:max-content 1fr; gap:4px 16px; font-size:14px; }
+dl.facts dt { color:var(--mute); } dl.facts dd { margin:0; }
+
+/* demo */
+.demo { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:18px; align-items:start; }
+.maps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.maps figure { margin:0; } .maps figcaption { font-size:12px; color:var(--mute); margin-top:3px; }
+.maps canvas { width:100%; height:auto; image-rendering:pixelated; border:1px solid var(--line); border-radius:4px; cursor:crosshair; display:block; }
+.ramp { height:8px; border-radius:2px; margin-top:3px; }
+.readout { font:13px var(--mono); }
+.readout table td, .readout table th { padding:3px 6px; }
+.swatch { display:inline-block; width:11px; height:11px; vertical-align:-1px; margin-right:5px; border:1px solid #0006; }
+.calc { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+
+/* code */
+.files a { display:block; padding:6px 8px; border-radius:3px; color:var(--ink); font-size:14px; }
+.files a.on, .files a:hover { background:color-mix(in srgb, var(--accent) 10%, transparent); color:var(--accent); text-decoration:none; }
+.files small { display:block; color:var(--mute); }
+.src { background:rgba(3,5,10,.92); border:1px solid var(--line); border-radius:4px; overflow-x:auto; font:12.5px/1.55 var(--mono); }
+.src table { width:auto; min-width:100%; border-collapse:collapse; font:inherit; }
+.src td { border:0; padding:0 10px; white-space:pre; vertical-align:top; }
+.src td.n { color:#56627f; text-align:right; user-select:none; width:1%; }
+.src tr.hit td { background:color-mix(in srgb, var(--accent) 16%, transparent); }
+.tk-c { color:#7d8bab; font-style:italic; } .tk-s { color:#9be28f; } .tk-n { color:#ffb86b; } .tk-k { color:#ff79c6; } .tk-ee { color:#7fd3ff; }
+.outline a { font-size:13px; display:block; padding:2px 0; }
+.hits a { display:block; font:12px var(--mono); padding:3px 0; color:var(--ink); }
+.hits b { color:var(--accent); }
+
+.side { grid-template-columns:280px minmax(0,1fr); }
+
+@media (max-width:760px) {
+  .demo, .side { grid-template-columns:minmax(0,1fr); }
+  .calc { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+label.chk { display:flex; gap:8px; align-items:center; margin-top:12px; color:var(--ink); }
